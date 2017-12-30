@@ -48,7 +48,7 @@ Discord – [Join my server](https://discord.gg/4HqYAjy)<br>
 Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
 
-Distributed under the MIT license. See [LICENSE](https://www.reddit.com/user/MrDragonXM15/LICENSE) for more information.
+Distributed under the MIT license. See [LICENSE](https://github.com/MrDragonXM15/CryptoBot/blob/master/LICENSE) for more information.
 
 ## Contributing
 
