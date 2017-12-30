@@ -1,0 +1,31 @@
+{
+  "name": "cryptobot",
+  "version": "1.0.0",
+  "description": "A discord bot who give you the current value of a cryptocurrency",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [ 
+    "bot",
+    "discord",
+    "discord-js",
+    "cryptocurrency"
+  ],
+  "author": "LucasAlt",
+  "license": "MIT",
+  "devDependencies": {
+    "discord.js": "^11.2.1",
+    "eslint": "^4.13.1",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "fs": "0.0.1-security",
+    "ftploy": "0.0.4",
+    "jsftp": "^2.1.2",
+    "request": "^2.83.0"
+  },
+  "dependencies": {}
+}

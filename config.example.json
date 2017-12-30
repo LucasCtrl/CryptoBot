@@ -1,0 +1,16 @@
+{
+  "token": {
+    "prod": "Your bot token for production",
+    "dev": "Your bot token for development"
+  }, 
+  "prefix": "$", 
+  "botId": "Your bot ID's", 
+  "botVersion": "1.2.0", 
+  "ownerID": "Your personnal ID", 
+  "FTPLogin": { 
+    "host": "", 
+    "port": "", 
+    "user": "", 
+    "password": "" 
+  }
+}
