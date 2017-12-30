@@ -8,7 +8,6 @@ const client = new Discord.Client({autoReconnect: true})
 
 const config = require('./config.json')
 const prefix = config.prefix
-// const cryptoBotAPI = JSON.parse(fs.readFileSync('./cryptobotAPI.json', 'utf8'))
 
 const ftpInformation = {
   username: config.FTPLogin.user,
@@ -234,6 +233,7 @@ client.on('message', message => {
       .addField('Discord.js version:', '11.2.1', true)
       .addField('Made by:', '<@176759285366128641>', true)
       .addField('Join me here:', 'https://discord.gg/4HqYAjy', true)
+      .addField('Now available on GitHub:', 'https://github.com/MrDragonXM15/CryptoBot')
       .addField(':level_slider: COMMANDS', 'All commands for the bot')
       .addField('$help', 'See all commands in DM')
       .addField('$hhelp', 'See all commands in global channel')
@@ -258,6 +258,7 @@ client.on('message', message => {
       .addField('Discord.js version:', '11.2.1', true)
       .addField('Made by:', '<@176759285366128641>', true)
       .addField('Join me here:', 'https://discord.gg/4HqYAjy', true)
+      .addField('Now available on GitHub:', 'https://github.com/MrDragonXM15/CryptoBot')
       .addField(':level_slider: COMMANDS', 'All commands for the bot')
       .addField('$help', 'See all commands in DM')
       .addField('$hhelp', 'See all commands in global channel')
