@@ -1,10 +1,8 @@
-<div style="text-align:center">
-
-![Bot Version](https://img.shields.io/badge/Bot_Version-1.2.0-lightgrey.svg?style=for-the-badge)
-[![Discord.js](https://img.shields.io/badge/discord.js-11.2.1-blue.svg?style=for-the-badge)](https://discord.js.org)
-![Status](https://img.shields.io/badge/Status-Online-brightgreen.svg?style=for-the-badge)
-
-</div>
+<p align="center">
+   <img src="https://img.shields.io/badge/Bot_Version-1.2.0-lightgrey.svg?style=for-the-badge" alt="Bot version"></img>
+   <a href="https://discord.js.org/" target="_blank"><img src="https://img.shields.io/badge/discord.js-11.2.1-blue.svg?style=for-the-badge" alt="Discord.js version"></img></a>
+   <img src="https://img.shields.io/badge/Status-Online-brightgreen.svg?style=for-the-badge" alt="Status"></img>
+</p>
 
 # CryptoBot
 > CryptoBot, your best friend on your discord server
