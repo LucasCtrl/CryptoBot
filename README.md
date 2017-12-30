@@ -30,6 +30,7 @@ npm start
 * 1.2.0
     * Modification of the embed message system
     * Send $help command in private
+    * Initial commit
 * 1.1.3
     * Add an eval command for administration
 * 1.1.2
@@ -39,7 +40,7 @@ npm start
 * 1.1.0
     * Display total users and servers
 * 1.0.0
-    * Initial commit
+    * Initial version
 
 ## Join me
 
