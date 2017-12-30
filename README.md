@@ -1,8 +1,13 @@
+<div style="text-align:center">
+
+![Bot Version](https://img.shields.io/badge/Bot_Version-1.2.0-lightgrey.svg?style=for-the-badge)
+[![Discord.js](https://img.shields.io/badge/discord.js-11.2.1-blue.svg?style=for-the-badge)](https://discord.js.org)
+![Status](https://img.shields.io/badge/Status-Online-brightgreen.svg?style=for-the-badge)
+
+</div>
+
 # CryptoBot
 > CryptoBot, your best friend on your discord server
-
-[![Discord.js](https://img.shields.io/badge/discord.js-11.2.1-blue.svg?style=for-the-badge)](https://discord.js.org)
-![](https://img.shields.io/badge/Status-Online-brightgreen.svg?style=for-the-badge)
 
 A discord bot that allows you to search for the value of all cryptocurrency available on [CoinMarketCap](https://coinmarketcap.com/).
 
