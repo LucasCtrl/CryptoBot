@@ -5,7 +5,7 @@
   }, 
   "prefix": "$", 
   "botId": "Your bot ID's", 
-  "botVersion": "1.2.0", 
+  "botVersion": "1.2.1", 
   "ownerID": "Your personnal ID", 
   "FTPLogin": { 
     "host": "", 

@@ -29,7 +29,8 @@ npm start
 ```
 
 ## Release History
-
+* 1.2.1
+    * Now the bot add a reaction when you mention it
 * 1.2.0
     * Modification of the embed message system
     * Send $help command in private
