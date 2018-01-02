@@ -117,6 +117,8 @@ client.on('ready', () => {
 })
 
 client.on('message', message => {
+  if (message.author.id === client.user.id) return
+  if (message.channel.recipient) return
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
   function mentionUser () {
@@ -297,4 +299,4 @@ client.on('message', message => {
   }
 })
 
-client.login(config.token.prod)
+client.login(config.token.dev)
