@@ -1,8 +1,12 @@
 {
   "name": "cryptobot",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "A discord bot who give you the current value of a cryptocurrency",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MrDragonXM15/CryptoBot.git"
+  },
   "scripts": {
     "start": "node app.js"
   },
