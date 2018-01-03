@@ -117,9 +117,18 @@ client.on('ready', () => {
 })
 
 client.on('message', message => {
-  if (!message.content.startsWith(prefix)) return
+  if (message.author.id === client.user.id) return
+  if (message.channel.recipient) return
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
+  function mentionUser () {
+    for (let i = -2; i < args.length; i++) {
+      const element = args[i]
+      if (element === '<@' + client.user.id + '>') {
+        return true
+      }
+    }
+  }
   if (command === 'money') {
     message.delete()
     message.channel.send({
@@ -285,6 +294,9 @@ client.on('message', message => {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
     }
   }
+  if (mentionUser() || message.content.startsWith('<@' + client.user.id + '>')) {
+    message.react('👌')
+  }
 })
 
-client.login(config.token.prod)
+client.login(config.token.dev)
