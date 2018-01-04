@@ -129,6 +129,7 @@ client.on('message', message => {
       }
     }
   }
+  
   if (command === 'money') {
     message.delete()
     message.channel.send({
@@ -136,54 +137,30 @@ client.on('message', message => {
         color: 16750848,
         title: 'Please wait ...'
       }
-    })
-      .then((message) => {
-        request('https://api.coinmarketcap.com/v1/ticker/?limit=0', function (err, response, body) {
-          if (err) {
-            message.channel.sendMessage('```Error! ' + err + '```')
-            return false
-          }
-          const data = JSON.parse(body)
-
-          var moneyId
-
-          function isAvailable () {
-            for (let prop in data) {
-              if (args[0] === data[prop].id || args[0] === data[prop].name || args[0] === data[prop].symbol) {
-                moneyId = data[prop].id
-                return true
-              }
-            }
-          }
-
-          if (isAvailable() === true) {
-            request('https://api.coinmarketcap.com/v1/ticker/' + moneyId + '/', function (err, response, body) {
-              if (err) {
-                message.channel.sendMessage('```Error! ' + err + '```')
-                return false
-              }
-
-              const data = JSON.parse(body)
-              const embed = new Discord.RichEmbed()
-                .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-                .setTitle(data[0].name + ' (' + data[0].symbol + ') stats')
-                .setDescription('[More info here](https://coinmarketcap.com/currencies/' + data[0].id + '/)')
-                .setThumbnail('https://files.coinmarketcap.com/static/img/coins/32x32/' + data[0].id + '.png')
-                .addField('Price (in USD)', '$' + data[0].price_usd)
-                .addField('Percentage Change (1hr)', data[0].percent_change_1h + '%')
-                .addField('Percentage Change (24hr)', data[0].percent_change_24h + '%')
-              message.edit({embed})
-            })
-          }
-          if (isAvailable() !== true) {
-            const embed = new Discord.RichEmbed()
-              .setColor('#ffc107')
-              .setTitle('Not available')
+    }).then((message) => {
+        getCoinData(args[0], message, function (message, data) {
+        if (data) {
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
+            .setTitle(data.name + ' (' + data.symbol + ') stats')
+            .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
+            .setThumbnail(cmImageRoot + data.id + '.png')
+            .addField('Price (in USD)', '$' + data.price_usd)
+            .addField('Percentage Change (1hr)', data.percent_change_1h + '%')
+            .addField('Percentage Change (24hr)', data.percent_change_24h + '%')
             message.edit({embed})
-          }
-        })
+        } else {
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107')
+            .setTitle('Not available')
+          message.edit({embed})
+        }
       })
+    })
   }
+  
+  
+  
   if (command === 'marketcap') {
     message.delete()
     message.channel.send({
@@ -298,5 +275,41 @@ client.on('message', message => {
     message.react('👌')
   }
 })
+
+//Returns an object with the coin's data, null if nothing is found
+//Callback takes in two parameters, the discordMessage and the coin data.
+function getCoinData(coinKey, discordMsg, callback) {
+  if(!coinKey) { //Quick check to not do API calls if user didn't put in any data
+    callback(discordMsg, null);
+    return; 
+  }
+  request('https://api.coinmarketcap.com/v1/ticker/?limit=0', function (err, response, body) {
+    if (err) {
+      callback(discordMsg, null);
+      discordMsg.channel.sendMessage('```Error, can\'t pull data from CoinMarketCap! ' + err + '```');
+      return;
+    }
+  
+    try {
+      var allCoinData = JSON.parse(body);
+      coinKey = coinKey.toLowerCase();
+      
+      for (let nextCoin of allCoinData) {
+        var coinID = nextCoin.id.toLowerCase();
+        var coinName = nextCoin.name.toLowerCase();
+        var coinSymbol = nextCoin.symbol.toLowerCase();
+        
+        if (coinKey === coinID || coinKey === coinName || coinKey === coinSymbol) {
+          callback(discordMsg, nextCoin);
+          return;
+        }
+    };
+      callback(discordMsg, null);
+    } catch (err) {
+      callback(discordMsg, null);
+      discordMsg.channel.sendMessage('```Error when processing coin info! ' + err + '```');
+    }
+  })
+}
 
 client.login(config.token.dev)
