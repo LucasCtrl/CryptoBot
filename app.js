@@ -4,10 +4,15 @@ const request = require('request')
 const ftploy = require('ftploy')
 const JSFtp = require('jsftp')
 const fs = require('fs')
+const BigNumber = require('bignumber.js')
 const client = new Discord.Client({autoReconnect: true})
 
 const config = require('./config.json')
 const prefix = config.prefix
+
+const cmImageRoot = "https://files.coinmarketcap.com/static/img/coins/32x32/"
+const cmMoreInfoRoot = "https://coinmarketcap.com/currencies/"
+
 
 const ftpInformation = {
   username: config.FTPLogin.user,
@@ -129,6 +134,7 @@ client.on('message', message => {
       }
     }
   }
+  
   if (command === 'money') {
     message.delete()
     message.channel.send({
@@ -136,54 +142,57 @@ client.on('message', message => {
         color: 16750848,
         title: 'Please wait ...'
       }
+    }).then((message) => {
+        getCoinData(args[0], message, function (message, data) {
+        if (data) {
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
+            .setTitle(data.name + ' (' + data.symbol + ') stats')
+            .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
+            .setThumbnail(cmImageRoot + data.id + '.png')
+            .addField('Price (in USD)', '$' + data.price_usd)
+            .addField('Percentage Change (1hr)', data.percent_change_1h + '%')
+            .addField('Percentage Change (24hr)', data.percent_change_24h + '%')
+            message.edit({embed})
+        } else {
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107')
+            .setTitle('Not available')
+          message.edit({embed})
+        }
+      })
     })
-      .then((message) => {
-        request('https://api.coinmarketcap.com/v1/ticker/?limit=0', function (err, response, body) {
-          if (err) {
-            message.channel.sendMessage('```Error! ' + err + '```')
-            return false
-          }
-          const data = JSON.parse(body)
-
-          var moneyId
-
-          function isAvailable () {
-            for (let prop in data) {
-              if (args[0] === data[prop].id || args[0] === data[prop].name || args[0] === data[prop].symbol) {
-                moneyId = data[prop].id
-                return true
-              }
-            }
-          }
-
-          if (isAvailable() === true) {
-            request('https://api.coinmarketcap.com/v1/ticker/' + moneyId + '/', function (err, response, body) {
-              if (err) {
-                message.channel.sendMessage('```Error! ' + err + '```')
-                return false
-              }
-
-              const data = JSON.parse(body)
-              const embed = new Discord.RichEmbed()
-                .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-                .setTitle(data[0].name + ' (' + data[0].symbol + ') stats')
-                .setDescription('[More info here](https://coinmarketcap.com/currencies/' + data[0].id + '/)')
-                .setThumbnail('https://files.coinmarketcap.com/static/img/coins/32x32/' + data[0].id + '.png')
-                .addField('Price (in USD)', '$' + data[0].price_usd)
-                .addField('Percentage Change (1hr)', data[0].percent_change_1h + '%')
-                .addField('Percentage Change (24hr)', data[0].percent_change_24h + '%')
-              message.edit({embed})
-            })
-          }
-          if (isAvailable() !== true) {
+  }
+  
+  if (command === 'sats') {
+    message.delete()
+    message.channel.send({
+      embed: {
+        color: 16750848,
+        title: 'Please wait ...'
+      }
+    }).then((message) => {
+        getCoinData(args[0], message, function (message, data) {
+          if (data) {
+            //Some really small coins don't have prices listed, handle case
+            var satPrice = data.price_btc !== null ? BigNumber(data.price_btc).times(100000000).toString() + " sats" : "Unknown price";
             const embed = new Discord.RichEmbed()
               .setColor('#ffc107')
-              .setTitle('Not available')
+              .setTitle(data.name + ' (' + data.symbol + ') stats')
+              .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
+              .setThumbnail(cmImageRoot + data.id + '.png')
+              .addField('Price in Satoshis', satPrice);
             message.edit({embed})
-          }
-        })
+      } else {
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107')
+            .setTitle('Not available')
+          message.edit({embed})
+        }
       })
+    })
   }
+  
   if (command === 'marketcap') {
     message.delete()
     message.channel.send({
@@ -215,11 +224,11 @@ client.on('message', message => {
   if (command === 'stats') {
     const embed = new Discord.RichEmbed()
       .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-      // .setAuthor('CryptoBot', 'https://files.coinmarketcap.com/static/img/coins/32x32/bitcoin.png')
+      // .setAuthor('CryptoBot', cmImageRoot + 'bitcoin.png')
       // .setTitle('This is your title, it can hold 256 characters')
       // .setURL('https://discord.js.org/#/docs/main/indev/class/RichEmbed')
       // .setDescription('This is the main body of text, it can hold 2048 characters.')
-      .setThumbnail('https://files.coinmarketcap.com/static/img/coins/32x32/bitcoin.png')
+      .setThumbnail(cmImageRoot + 'bitcoin.png')
       .addField('Total server', client.guilds.size, true)
       .addField('Total users', client.guilds.reduce((mem, g) => mem += g.memberCount, 0), true)
       .addField('Version:', config.botVersion, true)
@@ -233,53 +242,11 @@ client.on('message', message => {
     message.channel.send({embed})
   }
   if (command === 'help') {
-    const embed = new Discord.RichEmbed()
-      .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-      .setAuthor('CryptoBot', 'https://files.coinmarketcap.com/static/img/coins/32x32/bitcoin.png')
-      .addField(':information_source: INFORMATIONS', 'Some informations about the bot')
-      .addField('Add the bot to your server', 'https://cryptobot.lucasalt.fr/', true)
-      .addField('Version:', config.botVersion, true)
-      .addField('Discord.js version:', '11.2.1', true)
-      .addField('Made by:', '<@176759285366128641>', true)
-      .addField('Join me here:', 'https://discord.gg/4HqYAjy', true)
-      .addField('Now available on GitHub:', 'https://github.com/MrDragonXM15/CryptoBot')
-      .addField(':level_slider: COMMANDS', 'All commands for the bot')
-      .addField('$help', 'See all commands in DM')
-      .addField('$hhelp', 'See all commands in global channel')
-      .addField('$money <money>', 'See the value of a currency. \nSupport name and symbol \n__Example :__ `$money bitcoin` or `$money BTC`')
-      .addField('$marketcap', 'See all informations about the martket cap')
-      .addField('$stats', 'Some stats about the bot')
-      .addField(':dollar: SUPPORT ME', 'You can send me some cryptocurrencies to help me in the development of the bot')
-      .addField('Dogecoin', '`DNbD8 Dnts staV JxeC 54gT wdGL LdLW XuTgX`')
-      .addField('Litecoin', '`LPTu 5JMw BVAw RLni5 Jv6R 9xK9 Y9QX vXo1f`')
-      .addField('Dash', '`XTxxG FTdY f2sv rAi2 Ym3S GUbG XnBL 12gor`')
-      .addField('Ethereum', '`0x58 94e3 2413 34df 48f5b 1992 1444 2bfd b0bf f4b5b`')
     message.reply('A message containing the bot commands has been sent to you!')
-    message.author.send({embed})
+    message.author.send(getHelpMessage())
   }
   if (command === 'hhelp') {
-    const embed = new Discord.RichEmbed()
-      .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-      .setAuthor('CryptoBot', 'https://files.coinmarketcap.com/static/img/coins/32x32/bitcoin.png')
-      .addField(':information_source: INFORMATIONS', 'Some informations about the bot')
-      .addField('Add the bot to your server', 'https://cryptobot.lucasalt.fr/', true)
-      .addField('Version:', config.botVersion, true)
-      .addField('Discord.js version:', '11.2.1', true)
-      .addField('Made by:', '<@176759285366128641>', true)
-      .addField('Join me here:', 'https://discord.gg/4HqYAjy', true)
-      .addField('Now available on GitHub:', 'https://github.com/MrDragonXM15/CryptoBot')
-      .addField(':level_slider: COMMANDS', 'All commands for the bot')
-      .addField('$help', 'See all commands in DM')
-      .addField('$hhelp', 'See all commands in global channel')
-      .addField('$money <money>', 'See the value of a currency. \nSupport name and symbol \n__Example :__ `$money bitcoin` or `$money BTC`')
-      .addField('$marketcap', 'See all informations about the martket cap')
-      .addField('$stats', 'Some stats about the bot')
-      .addField(':dollar: SUPPORT ME', 'You can send me some cryptocurrencies to help me in the development of the bot')
-      .addField('Dogecoin', '`DNbD8 Dnts staV JxeC 54gT wdGL LdLW XuTgX`')
-      .addField('Litecoin', '`LPTu 5JMw BVAw RLni5 Jv6R 9xK9 Y9QX vXo1f`')
-      .addField('Dash', '`XTxxG FTdY f2sv rAi2 Ym3S GUbG XnBL 12gor`')
-      .addField('Ethereum', '`0x58 94e3 2413 34df 48f5b 1992 1444 2bfd b0bf f4b5b`')
-    message.channel.send({embed})
+    message.channel.send(getHelpMessage())
   }
   if (command === 'eval') {
     if (message.author.id !== config.ownerID) return
@@ -298,5 +265,67 @@ client.on('message', message => {
     message.react('👌')
   }
 })
+
+//Returns an object with the coin's data, null if nothing is found
+//Callback takes in two parameters, the discordMessage and the coin data.
+function getCoinData(coinKey, discordMsg, callback) {
+  if(!coinKey) { //Quick check to not do API calls if user didn't put in any data
+    callback(discordMsg, null);
+    return; 
+  }
+  request('https://api.coinmarketcap.com/v1/ticker/?limit=0', function (err, response, body) {
+    if (err) {
+      callback(discordMsg, null);
+      discordMsg.channel.sendMessage('```Error, can\'t pull data from CoinMarketCap! ' + err + '```');
+      return;
+    }
+  
+    try {
+      var allCoinData = JSON.parse(body);
+      coinKey = coinKey.toLowerCase();
+      
+      for (let nextCoin of allCoinData) {
+        var coinID = nextCoin.id.toLowerCase();
+        var coinName = nextCoin.name.toLowerCase();
+        var coinSymbol = nextCoin.symbol.toLowerCase();
+        
+        if (coinKey === coinID || coinKey === coinName || coinKey === coinSymbol) {
+          callback(discordMsg, nextCoin);
+          return;
+        }
+    };
+      callback(discordMsg, null);
+    } catch (err) {
+      callback(discordMsg, null);
+      discordMsg.channel.sendMessage('```Error when processing coin info! ' + err + '```');
+    }
+  })
+}
+
+function getHelpMessage() {
+  var embed = new Discord.RichEmbed()
+    .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
+    .setAuthor('CryptoBot', cmImageRoot + 'bitcoin.png')
+    .addField(':information_source: INFORMATIONS', 'Some informations about the bot')
+    .addField('Add the bot to your server', 'https://cryptobot.lucasalt.fr/', true)
+    .addField('Version:', config.botVersion, true)
+    .addField('Discord.js version:', '11.2.1', true)
+    .addField('Made by:', '<@176759285366128641>', true)
+    .addField('Join me here:', 'https://discord.gg/4HqYAjy', true)
+    .addField('Now available on GitHub:', 'https://github.com/MrDragonXM15/CryptoBot')
+    .addField(':level_slider: COMMANDS', 'All commands for the bot')
+    .addField('$help', 'See all commands in DM')
+    .addField('$hhelp', 'See all commands in global channel')
+    .addField('$money <money>', 'See the value of a currency in USD. \nSupport name and symbol \n__Example :__ `$money bitcoin` or `$money BTC`')
+    .addField('$sats <coin>', 'See the value of a currency in sats. \nSupport name and symbol \n__Example :__ `$sats Ethereum` or `$sats ETH`')
+    .addField('$marketcap', 'See all informations about the martket cap')
+    .addField('$stats', 'Some stats about the bot')
+    .addField(':dollar: SUPPORT ME', 'You can send me some cryptocurrencies to help me in the development of the bot')
+    .addField('Dogecoin', '`DNbD8 Dnts staV JxeC 54gT wdGL LdLW XuTgX`')
+    .addField('Litecoin', '`LPTu 5JMw BVAw RLni5 Jv6R 9xK9 Y9QX vXo1f`')
+    .addField('Dash', '`XTxxG FTdY f2sv rAi2 Ym3S GUbG XnBL 12gor`')
+    .addField('Ethereum', '`0x58 94e3 2413 34df 48f5b 1992 1444 2bfd b0bf f4b5b`')
+  return embed;
+}
 
 client.login(config.token.dev)
