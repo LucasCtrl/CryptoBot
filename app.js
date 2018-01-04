@@ -10,9 +10,8 @@ const client = new Discord.Client({autoReconnect: true})
 const config = require('./config.json')
 const prefix = config.prefix
 
-const cmImageRoot = "https://files.coinmarketcap.com/static/img/coins/32x32/"
-const cmMoreInfoRoot = "https://coinmarketcap.com/currencies/"
-
+const cmImageRoot = 'https://files.coinmarketcap.com/static/img/coins/32x32/'
+const cmMoreInfoRoot = 'https://coinmarketcap.com/currencies/'
 
 const ftpInformation = {
   username: config.FTPLogin.user,
@@ -134,7 +133,6 @@ client.on('message', message => {
       }
     }
   }
-  
   if (command === 'money') {
     message.delete()
     message.channel.send({
@@ -143,7 +141,7 @@ client.on('message', message => {
         title: 'Please wait ...'
       }
     }).then((message) => {
-        getCoinData(args[0], message, function (message, data) {
+      getCoinData(args[0], message, function (message, data) {
         if (data) {
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
@@ -153,7 +151,7 @@ client.on('message', message => {
             .addField('Price (in USD)', '$' + data.price_usd)
             .addField('Percentage Change (1hr)', data.percent_change_1h + '%')
             .addField('Percentage Change (24hr)', data.percent_change_24h + '%')
-            message.edit({embed})
+          message.edit({embed})
         } else {
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107')
@@ -163,7 +161,6 @@ client.on('message', message => {
       })
     })
   }
-  
   if (command === 'sats') {
     message.delete()
     message.channel.send({
@@ -172,18 +169,18 @@ client.on('message', message => {
         title: 'Please wait ...'
       }
     }).then((message) => {
-        getCoinData(args[0], message, function (message, data) {
-          if (data) {
-            //Some really small coins don't have prices listed, handle case
-            var satPrice = data.price_btc !== null ? BigNumber(data.price_btc).times(100000000).toString() + " sats" : "Unknown price";
-            const embed = new Discord.RichEmbed()
-              .setColor('#ffc107')
-              .setTitle(data.name + ' (' + data.symbol + ') stats')
-              .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
-              .setThumbnail(cmImageRoot + data.id + '.png')
-              .addField('Price in Satoshis', satPrice);
-            message.edit({embed})
-      } else {
+      getCoinData(args[0], message, function (message, data) {
+        if (data) {
+          // Some really small coins don't have prices listed, handle case
+          var satPrice = data.price_btc !== null ? BigNumber(data.price_btc).times(100000000).toString() + ' sats' : 'Unknown price'
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107')
+            .setTitle(data.name + ' (' + data.symbol + ') stats')
+            .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
+            .setThumbnail(cmImageRoot + data.id + '.png')
+            .addField('Price in Satoshis', satPrice)
+          message.edit({embed})
+        } else {
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107')
             .setTitle('Not available')
@@ -192,7 +189,6 @@ client.on('message', message => {
       })
     })
   }
-  
   if (command === 'marketcap') {
     message.delete()
     message.channel.send({
@@ -233,7 +229,7 @@ client.on('message', message => {
       .addField('Total users', client.guilds.reduce((mem, g) => mem += g.memberCount, 0), true)
       .addField('Version:', config.botVersion, true)
       .addField('Discord.js version:', '11.2.1', true)
-      .addField('Made by:', (Math.round(client.uptime / (1000 * 60 * 60))) + ' hour(s), ' + (Math.round(client.uptime / (1000 * 60)) % 60) + ' minute(s), and ' + (Math.round(client.uptime / 1000) % 60) + ' second(s)', true)
+      .addField('Uptime:', (Math.round(client.uptime / (1000 * 60 * 60))) + ' hour(s), ' + (Math.round(client.uptime / (1000 * 60)) % 60) + ' minute(s), and ' + (Math.round(client.uptime / 1000) % 60) + ' second(s)', true)
       // .addBlankField(true)
       // .addField('Inline Field 3', 'You can have a maximum of 25 fields.', true)
       // .setImage('http://i.imgur.com/yVpymuV.png')
@@ -246,6 +242,7 @@ client.on('message', message => {
     message.author.send(getHelpMessage())
   }
   if (command === 'hhelp') {
+    message.delete()
     message.channel.send(getHelpMessage())
   }
   if (command === 'eval') {
@@ -266,43 +263,40 @@ client.on('message', message => {
   }
 })
 
-//Returns an object with the coin's data, null if nothing is found
-//Callback takes in two parameters, the discordMessage and the coin data.
-function getCoinData(coinKey, discordMsg, callback) {
-  if(!coinKey) { //Quick check to not do API calls if user didn't put in any data
-    callback(discordMsg, null);
-    return; 
+// Returns an object with the coin's data, null if nothing is found
+// Callback takes in two parameters, the discordMessage and the coin data.
+function getCoinData (coinKey, discordMsg, callback) {
+  if (!coinKey) { // Quick check to not do API calls if user didn't put in any data
+    callback(discordMsg, null)
+    return
   }
   request('https://api.coinmarketcap.com/v1/ticker/?limit=0', function (err, response, body) {
     if (err) {
-      callback(discordMsg, null);
-      discordMsg.channel.sendMessage('```Error, can\'t pull data from CoinMarketCap! ' + err + '```');
-      return;
+      callback(discordMsg, null)
+      discordMsg.channel.sendMessage('```Error, can\'t pull data from CoinMarketCap! ' + err + '```')
+      return
     }
-  
     try {
-      var allCoinData = JSON.parse(body);
-      coinKey = coinKey.toLowerCase();
-      
+      var allCoinData = JSON.parse(body)
+      coinKey = coinKey.toLowerCase()
       for (let nextCoin of allCoinData) {
-        var coinID = nextCoin.id.toLowerCase();
-        var coinName = nextCoin.name.toLowerCase();
-        var coinSymbol = nextCoin.symbol.toLowerCase();
-        
+        var coinID = nextCoin.id.toLowerCase()
+        var coinName = nextCoin.name.toLowerCase()
+        var coinSymbol = nextCoin.symbol.toLowerCase()
         if (coinKey === coinID || coinKey === coinName || coinKey === coinSymbol) {
-          callback(discordMsg, nextCoin);
-          return;
+          callback(discordMsg, nextCoin)
+          return
         }
-    };
-      callback(discordMsg, null);
+      };
+      callback(discordMsg, null)
     } catch (err) {
-      callback(discordMsg, null);
-      discordMsg.channel.sendMessage('```Error when processing coin info! ' + err + '```');
+      callback(discordMsg, null)
+      discordMsg.channel.sendMessage('```Error when processing coin info! ' + err + '```')
     }
   })
 }
 
-function getHelpMessage() {
+function getHelpMessage () {
   var embed = new Discord.RichEmbed()
     .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
     .setAuthor('CryptoBot', cmImageRoot + 'bitcoin.png')
@@ -316,7 +310,7 @@ function getHelpMessage() {
     .addField(':level_slider: COMMANDS', 'All commands for the bot')
     .addField('$help', 'See all commands in DM')
     .addField('$hhelp', 'See all commands in global channel')
-    .addField('$money <money>', 'See the value of a currency in USD. \nSupport name and symbol \n__Example :__ `$money bitcoin` or `$money BTC`')
+    .addField('$money <coin>', 'See the value of a currency in USD. \nSupport name and symbol \n__Example :__ `$money bitcoin` or `$money BTC`')
     .addField('$sats <coin>', 'See the value of a currency in sats. \nSupport name and symbol \n__Example :__ `$sats Ethereum` or `$sats ETH`')
     .addField('$marketcap', 'See all informations about the martket cap')
     .addField('$stats', 'Some stats about the bot')
@@ -325,7 +319,7 @@ function getHelpMessage() {
     .addField('Litecoin', '`LPTu 5JMw BVAw RLni5 Jv6R 9xK9 Y9QX vXo1f`')
     .addField('Dash', '`XTxxG FTdY f2sv rAi2 Ym3S GUbG XnBL 12gor`')
     .addField('Ethereum', '`0x58 94e3 2413 34df 48f5b 1992 1444 2bfd b0bf f4b5b`')
-  return embed;
+  return embed
 }
 
-client.login(config.token.dev)
+client.login(config.token.prod)

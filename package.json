@@ -10,14 +10,19 @@
   "scripts": {
     "start": "node app.js"
   },
-  "keywords": [ 
+  "keywords": [
     "bot",
     "discord",
     "discord-js",
     "cryptocurrency"
   ],
   "author": "LucasAlt",
-  "contributors": [{"name":"Chet Michals", "email" : "chetmichals@gmail.com"}],
+  "contributors": [
+    {
+      "name": "Chet Michals",
+      "email": "chetmichals@gmail.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "discord.js": "^11.2.1",
