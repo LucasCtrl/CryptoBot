@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="https://img.shields.io/badge/Bot_Version-1.2.0-lightgrey.svg?style=for-the-badge" alt="Bot version"></img>
+   <img src="https://img.shields.io/badge/Bot_Version-1.2.2-lightgrey.svg?style=for-the-badge" alt="Bot version"></img>
    <a href="https://discord.js.org/" target="_blank"><img src="https://img.shields.io/badge/discord.js-11.2.1-blue.svg?style=for-the-badge" alt="Discord.js version"></img></a>
    <img src="https://img.shields.io/badge/Status-Online-brightgreen.svg?style=for-the-badge" alt="Status"></img>
 </p>
@@ -29,6 +29,10 @@ npm start
 ```
 
 ## Release History
+* 1.2.2
+    * Add $sats command that displays the current value of a cryptocurrency in satoshi
+    * Fix $help and $hhelp embed message
+    * Call less API in this version
 * 1.2.1
     * Now the bot add a reaction when you mention it
     * No longer responds in DM channels
@@ -54,6 +58,12 @@ Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
 
 Distributed under the MIT license. See [LICENSE](https://github.com/MrDragonXM15/CryptoBot/blob/master/LICENSE) for more information.
+
+## Author/Contributor
+
+* **LucasAlt** _alias_ [@MrDragonXM15](https://github.com/MrDragonXM15)
+* **Chet Michals** _alias_ [@chetmichals](https://github.com/chetmichals)
+* [And more](https://github.com/MrDragonXM15/CryptoBot/graphs/contributors)
 
 ## Contributing
 
