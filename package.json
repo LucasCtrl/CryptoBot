@@ -1,6 +1,6 @@
 {
   "name": "cryptobot",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A discord bot who give you the current value of a cryptocurrency",
   "main": "app.js",
   "repository": {
@@ -17,6 +17,7 @@
     "cryptocurrency"
   ],
   "author": "LucasAlt",
+  "contributors": [{"name":"Chet Michals", "email" : "chetmichals@gmail.com"}],
   "license": "MIT",
   "devDependencies": {
     "discord.js": "^11.2.1",
@@ -29,7 +30,8 @@
     "fs": "0.0.1-security",
     "ftploy": "0.0.4",
     "jsftp": "^2.1.2",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "bignumber.js": "^5.0.0"
   },
   "dependencies": {}
 }

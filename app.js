@@ -4,6 +4,7 @@ const request = require('request')
 const ftploy = require('ftploy')
 const JSFtp = require('jsftp')
 const fs = require('fs')
+const BigNumber = require('bignumber.js')
 const client = new Discord.Client({autoReconnect: true})
 
 const config = require('./config.json')
@@ -163,7 +164,34 @@ client.on('message', message => {
     })
   }
   
-  
+  if (command === 'sats') {
+    message.delete()
+    message.channel.send({
+      embed: {
+        color: 16750848,
+        title: 'Please wait ...'
+      }
+    }).then((message) => {
+        getCoinData(args[0], message, function (message, data) {
+          if (data) {
+            //Some really small coins don't have prices listed, handle case
+            var satPrice = data.price_btc !== null ? BigNumber(data.price_btc).times(100000000).toString() + " sats" : "Unknown price";
+            const embed = new Discord.RichEmbed()
+              .setColor('#ffc107')
+              .setTitle(data.name + ' (' + data.symbol + ') stats')
+              .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
+              .setThumbnail(cmImageRoot + data.id + '.png')
+              .addField('Price in Satoshis', satPrice);
+            message.edit({embed})
+      } else {
+          const embed = new Discord.RichEmbed()
+            .setColor('#ffc107')
+            .setTitle('Not available')
+          message.edit({embed})
+        }
+      })
+    })
+  }
   
   if (command === 'marketcap') {
     message.delete()
@@ -218,7 +246,7 @@ client.on('message', message => {
     message.author.send(getHelpMessage())
   }
   if (command === 'hhelp') {
-    message.author.send(getHelpMessage())
+    message.channel.send(getHelpMessage())
   }
   if (command === 'eval') {
     if (message.author.id !== config.ownerID) return
@@ -289,6 +317,7 @@ function getHelpMessage() {
     .addField('$help', 'See all commands in DM')
     .addField('$hhelp', 'See all commands in global channel')
     .addField('$money <money>', 'See the value of a currency in USD. \nSupport name and symbol \n__Example :__ `$money bitcoin` or `$money BTC`')
+    .addField('$sats <coin>', 'See the value of a currency in sats. \nSupport name and symbol \n__Example :__ `$sats Ethereum` or `$sats ETH`')
     .addField('$marketcap', 'See all informations about the martket cap')
     .addField('$stats', 'Some stats about the bot')
     .addField(':dollar: SUPPORT ME', 'You can send me some cryptocurrencies to help me in the development of the bot')
