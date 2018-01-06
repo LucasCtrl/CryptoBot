@@ -40,30 +40,34 @@ const clean = text => {
 }
 
 client.on('guildCreate', guild => {
-  Ftp.raw('dele', 'C:\\cryptobotAPI.json')
-  let guildsInformation = {
-    totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
-    totalServer: client.guilds.size.toLocaleString()
+  if (config.useFTP === true) {
+    Ftp.raw('dele', 'C:\\cryptobotAPI.json')
+    let guildsInformation = {
+      totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
+      totalServer: client.guilds.size.toLocaleString()
+    }
+    fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
+      if (err) console.error(err)
+    })
+    ftploy(ftpInformation)
   }
-  fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
-    if (err) console.error(err)
-  })
-  ftploy(ftpInformation)
   console.log(`>_ Bot added on : ${guild.name} (${guild.id})`)
   console.log('>_ ' + client.guilds.size.toLocaleString() + ' servers | ' + client.guilds.reduce((mem, g) => mem += g.memberCount, 0) + ' users')
   console.log('>_ ')
   client.user.setGame('$help - ' + client.guilds.size.toLocaleString() + ' servers | ' + client.guilds.reduce((mem, g) => mem += g.memberCount, 0) + '  Users')
 })
 client.on('guildDelete', guild => {
-  Ftp.raw('dele', 'C:\\cryptobotAPI.json')
-  let guildsInformation = {
-    totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
-    totalServer: client.guilds.size.toLocaleString()
+  if (config.useFTP === true) {
+    Ftp.raw('dele', 'C:\\cryptobotAPI.json')
+    let guildsInformation = {
+      totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
+      totalServer: client.guilds.size.toLocaleString()
+    }
+    fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
+      if (err) console.error(err)
+    })
+    ftploy(ftpInformation)
   }
-  fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
-    if (err) console.error(err)
-  })
-  ftploy(ftpInformation)
   console.log(`>_ Bot deleted on : ${guild.name} (${guild.id})`)
   console.log('>_ ' + client.guilds.size.toLocaleString() + ' servers | ' + client.guilds.reduce((mem, g) => mem += g.memberCount, 0) + ' users')
   console.log('>_')
@@ -71,44 +75,50 @@ client.on('guildDelete', guild => {
 })
 
 client.on('guildMemberAdd', (member) => {
-  Ftp.raw('dele', 'C:\\cryptobotAPI.json')
-  let guildsInformation = {
-    totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
-    totalServer: client.guilds.size.toLocaleString()
+  if (config.useFTP === true) {
+    Ftp.raw('dele', 'C:\\cryptobotAPI.json')
+    let guildsInformation = {
+      totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
+      totalServer: client.guilds.size.toLocaleString()
+    }
+    fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
+      if (err) console.error(err)
+    })
+    ftploy(ftpInformation)
   }
-  fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
-    if (err) console.error(err)
-  })
-  ftploy(ftpInformation)
   const guild = member.guild
   client.user.setGame('$help - ' + client.guilds.size.toLocaleString() + ' servers | ' + client.guilds.reduce((mem, g) => mem += g.memberCount, 0) + '  Users')
   console.log(`>_ ${member.user.username}#${member.user.discriminator} as join ${guild.name} (${guild.id})`)
 })
 client.on('guildMemberRemove', (member) => {
-  Ftp.raw('dele', 'C:\\cryptobotAPI.json')
-  let guildsInformation = {
-    totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
-    totalServer: client.guilds.size.toLocaleString()
+  if (config.useFTP === true) {
+    Ftp.raw('dele', 'C:\\cryptobotAPI.json')
+    let guildsInformation = {
+      totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
+      totalServer: client.guilds.size.toLocaleString()
+    }
+    fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
+      if (err) console.error(err)
+    })
+    ftploy(ftpInformation)
   }
-  fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
-    if (err) console.error(err)
-  })
-  ftploy(ftpInformation)
   const guild = member.guild
   client.user.setGame('$help - ' + client.guilds.size.toLocaleString() + ' servers | ' + client.guilds.reduce((mem, g) => mem += g.memberCount, 0) + '  Users')
   console.log(`>_ ${member.user.username}#${member.user.discriminator} as left ${guild.name} (${guild.id})`)
 })
 
 client.on('ready', () => {
-  Ftp.raw('dele', 'C:\\cryptobotAPI.json')
-  let guildsInformation = {
-    totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
-    totalServer: client.guilds.size.toLocaleString()
+  if (config.useFTP === true) {
+    Ftp.raw('dele', 'C:\\cryptobotAPI.json')
+    let guildsInformation = {
+      totalUser: client.guilds.reduce((mem, g) => mem += g.memberCount, 0),
+      totalServer: client.guilds.size.toLocaleString()
+    }
+    fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
+      if (err) console.error(err)
+    })
+    ftploy(ftpInformation)
   }
-  fs.writeFile('./cryptobotAPI.json', JSON.stringify(guildsInformation), (err) => {
-    if (err) console.error(err)
-  })
-  ftploy(ftpInformation)
   console.log('########################################')
   console.log('#                                      #')
   console.log('#               CryptoBot              #')
@@ -322,4 +332,4 @@ function getHelpMessage () {
   return embed
 }
 
-client.login(config.token.prod)
+client.login(config.token.dev)

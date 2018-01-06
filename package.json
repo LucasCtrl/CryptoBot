@@ -1,6 +1,6 @@
 {
   "name": "cryptobot",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A discord bot who give you the current value of a cryptocurrency",
   "main": "app.js",
   "repository": {
