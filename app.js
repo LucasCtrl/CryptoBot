@@ -151,7 +151,7 @@ client.on('message', message => {
         title: 'Please wait ...'
       }
     }).then((message) => {
-      getCoinData(args[0], message, function (message, data) {
+      getCoinData(args[0], message, false, function (message, data) {
         if (data) {
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
@@ -179,16 +179,36 @@ client.on('message', message => {
         title: 'Please wait ...'
       }
     }).then((message) => {
-      getCoinData(args[0], message, function (message, data) {
+      getCoinData(args[0], message, true, function (message, data, btc) {
         if (data) {
-          // Some really small coins don't have prices listed, handle case
-          var satPrice = data.price_btc !== null ? BigNumber(data.price_btc).times(100000000).toString() + ' sats' : 'Unknown price'
+          var satPrice = 'Unknown price';
+          var sat1Hr = 'Unknown price';
+          var sat24Hr = 'Unknown price';
+          
+           // Some really small coins don't have prices listed, handle case
+          if (data.price_btc !== null) {
+            var satPrice = BigNumber(data.price_btc).times(100000000).toString() + ' sats'
+            
+            //Calculate the percent change of price relative to Bitcoin
+            var btc1HrPct = BigNumber(btc.percent_change_1h).dividedBy(100).plus(1)
+            var btc24HrPct = BigNumber(btc.percent_change_24h).dividedBy(100).plus(1)
+            
+            var coin1HrPct= BigNumber(data.percent_change_1h).dividedBy(100).plus(1)
+            var coin24HrPct = BigNumber(data.percent_change_24h).dividedBy(100).plus(1)
+            
+            //((AltCoin price change) / (BitCoin Price change))
+            var sat1Hr = coin1HrPct.dividedBy(btc1HrPct).minus(1).times(100);
+            var sat24Hr = coin24HrPct.dividedBy(btc24HrPct).minus(1).times(100);
+          }
+		  
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107')
             .setTitle(data.name + ' (' + data.symbol + ') stats')
             .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
             .setThumbnail(cmImageRoot + data.id + '.png')
             .addField('Price in Satoshis', satPrice)
+            .addField('Percentage Change (1hr)', sat1Hr.toFixed(2) + '%')
+            .addField('Percentage Change (24hr)', sat24Hr.toFixed(2) + '%')
           message.edit({embed})
         } else {
           const embed = new Discord.RichEmbed()
@@ -275,7 +295,7 @@ client.on('message', message => {
 
 // Returns an object with the coin's data, null if nothing is found
 // Callback takes in two parameters, the discordMessage and the coin data.
-function getCoinData (coinKey, discordMsg, callback) {
+function getCoinData (coinKey, discordMsg, passBTC, callback) {
   if (!coinKey) { // Quick check to not do API calls if user didn't put in any data
     callback(discordMsg, null)
     return
@@ -289,12 +309,22 @@ function getCoinData (coinKey, discordMsg, callback) {
     try {
       var allCoinData = JSON.parse(body)
       coinKey = coinKey.toLowerCase()
+      var btc = null
+      if (passBTC) {
+          //Likely always be the first few coin, but CoinMarketCap's does order by marketcap
+          for (let nextCoin of allCoinData) {
+            if (nextCoin.id === "bitcoin") {
+               btc = nextCoin
+               break
+            }
+          }
+      }
       for (let nextCoin of allCoinData) {
         var coinID = nextCoin.id.toLowerCase()
         var coinName = nextCoin.name.toLowerCase()
         var coinSymbol = nextCoin.symbol.toLowerCase()
         if (coinKey === coinID || coinKey === coinName || coinKey === coinSymbol) {
-          callback(discordMsg, nextCoin)
+          callback(discordMsg, nextCoin, btc)
           return
         }
       };
