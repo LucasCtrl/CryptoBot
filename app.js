@@ -179,7 +179,7 @@ client.on('message', message => {
           var sat1Hr = 'Unknown price';
           var sat24Hr = 'Unknown price';
           
-           // Some really small coins don't have prices listed, handle case
+          // Some really small coins don't have prices listed, handle case
           if (data.price_btc !== null) {
             var satPrice = BigNumber(data.price_btc).times(100000000).toString() + ' sats'
             
@@ -302,13 +302,13 @@ function getCoinData (coinKey, discordMsg, passBTC, callback) {
       coinKey = coinKey.toLowerCase()
       var btc = null
       if (passBTC) {
-          //Likely always be the first few coin, but CoinMarketCap's does order by marketcap
-          for (let nextCoin of allCoinData) {
-            if (nextCoin.id === "bitcoin") {
-               btc = nextCoin
-               break
-            }
+        // Likely always be the first few coin, but CoinMarketCap's does order by marketcap
+        for (let nextCoin of allCoinData) {
+          if (nextCoin.id === 'bitcoin') {
+            btc = nextCoin
+            break
           }
+        }
       }
       for (let nextCoin of allCoinData) {
         var coinID = nextCoin.id.toLowerCase()

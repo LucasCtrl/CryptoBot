@@ -30,9 +30,10 @@ npm start
 
 ## Release History
 * 1.2.3
-    * Add some config for FTP connection
     * Display the currency valur of a cryptocurrency in Satoshi in the `$money` command
+    * Added a percent change to the `$sats` command
     * No longer adds reaction when you mention it (performance problem)
+    * Add some config for FTP connection
 * 1.2.2
     * Add `$sats` command that displays the current value of a cryptocurrency in satoshi
     * Fix `$help` and `$hhelp` embed message
