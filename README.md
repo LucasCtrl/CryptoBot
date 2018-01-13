@@ -31,16 +31,18 @@ npm start
 ## Release History
 * 1.2.3
     * Add some config for FTP connection
+    * Display the currency valur of a cryptocurrency in Satoshi in the `$money` command
+    * No longer adds reaction when you mention it (performance problem)
 * 1.2.2
-    * Add $sats command that displays the current value of a cryptocurrency in satoshi
-    * Fix $help and $hhelp embed message
+    * Add `$sats` command that displays the current value of a cryptocurrency in satoshi
+    * Fix `$help` and `$hhelp` embed message
     * Call less API in this version
 * 1.2.1
     * Now the bot add a reaction when you mention it
     * No longer responds in DM channels
 * 1.2.0
     * Modification of the embed message system
-    * Send $help command in private
+    * Send `$help` command in a private channel
     * Initial commit
 * 1.1.3
     * Add an eval command for administration

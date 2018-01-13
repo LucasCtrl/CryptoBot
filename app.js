@@ -135,14 +135,6 @@ client.on('message', message => {
   if (message.channel.recipient) return
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
-  function mentionUser () {
-    for (let i = -2; i < args.length; i++) {
-      const element = args[i]
-      if (element === '<@' + client.user.id + '>') {
-        return true
-      }
-    }
-  }
   if (command === 'money') {
     message.delete()
     message.channel.send({
@@ -153,12 +145,14 @@ client.on('message', message => {
     }).then((message) => {
       getCoinData(args[0], message, function (message, data) {
         if (data) {
+          var satPrice = data.price_btc !== null ? BigNumber(data.price_btc).times(100000000).toString() + ' sats' : 'Unknown price'
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
             .setTitle(data.name + ' (' + data.symbol + ') stats')
             .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
             .setThumbnail(cmImageRoot + data.id + '.png')
             .addField('Price (in USD)', '$' + data.price_usd)
+            .addField('Price (in Satoshis)', satPrice)
             .addField('Percentage Change (1hr)', data.percent_change_1h + '%')
             .addField('Percentage Change (24hr)', data.percent_change_24h + '%')
           message.edit({embed})
@@ -267,9 +261,6 @@ client.on('message', message => {
     } catch (err) {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
     }
-  }
-  if (mentionUser() || message.content.startsWith('<@' + client.user.id + '>')) {
-    message.react('👌')
   }
 })
 
