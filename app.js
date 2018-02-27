@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign,no-eval */
-const Discord = require('discord.js')
+import Discord from 'discord.js'
 const request = require('request')
 const ftploy = require('ftploy')
 const JSFtp = require('jsftp')
@@ -133,11 +133,8 @@ client.on('ready', () => {
 client.on('message', message => {
   if (message.author.id === client.user.id) return
   if (message.channel.recipient) return
-<<<<<<< Updated upstream
   if (!message.content.startsWith(prefix)) return
-=======
   if (!message.channel.startsWith(prefix)) return
->>>>>>> Stashed changes
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
   if (command === 'money') {
@@ -180,26 +177,26 @@ client.on('message', message => {
     }).then((message) => {
       getCoinData(args[0], message, true, function (message, data, btc) {
         if (data) {
-          var satPrice = 'Unknown price';
-          var sat1Hr = 'Unknown price';
-          var sat24Hr = 'Unknown price';
-          
+          var satPrice = 'Unknown price'
+          var sat1Hr = 'Unknown price'
+          var sat24Hr = 'Unknown price'
+
           // Some really small coins don't have prices listed, handle case
           if (data.price_btc !== null) {
             var satPrice = BigNumber(data.price_btc).times(100000000).toString() + ' sats'
-            
-            //Calculate the percent change of price relative to Bitcoin
+
+            // Calculate the percent change of price relative to Bitcoin
             var btc1HrPct = BigNumber(btc.percent_change_1h).dividedBy(100).plus(1)
             var btc24HrPct = BigNumber(btc.percent_change_24h).dividedBy(100).plus(1)
-            
-            var coin1HrPct= BigNumber(data.percent_change_1h).dividedBy(100).plus(1)
+
+            var coin1HrPct = BigNumber(data.percent_change_1h).dividedBy(100).plus(1)
             var coin24HrPct = BigNumber(data.percent_change_24h).dividedBy(100).plus(1)
-            
-            //((AltCoin price change) / (BitCoin Price change))
-            var sat1Hr = coin1HrPct.dividedBy(btc1HrPct).minus(1).times(100);
-            var sat24Hr = coin24HrPct.dividedBy(btc24HrPct).minus(1).times(100);
+
+            // ((AltCoin price change) / (BitCoin Price change))
+            var sat1Hr = coin1HrPct.dividedBy(btc1HrPct).minus(1).times(100)
+            var sat24Hr = coin24HrPct.dividedBy(btc24HrPct).minus(1).times(100)
           }
-		  
+
           const embed = new Discord.RichEmbed()
             .setColor('#ffc107')
             .setTitle(data.name + ' (' + data.symbol + ') stats')
