@@ -133,7 +133,11 @@ client.on('ready', () => {
 client.on('message', message => {
   if (message.author.id === client.user.id) return
   if (message.channel.recipient) return
+<<<<<<< Updated upstream
   if (!message.content.startsWith(prefix)) return
+=======
+  if (!message.channel.startsWith(prefix)) return
+>>>>>>> Stashed changes
   const args = message.content.slice(prefix.length).trim().split(/ +/g)
   const command = args.shift().toLowerCase()
   if (command === 'money') {
