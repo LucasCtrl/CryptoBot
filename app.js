@@ -152,7 +152,8 @@ client.on('message', message => {
             .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
             .setTitle(data.name + ' (' + data.symbol + ') stats')
             .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
-            .setThumbnail(cmImageRoot + data.id + '.png')
+            //.setThumbnail(cmImageRoot + 'bitcoin.png') Error with the url image
+            .setThumbnail('https://s2.coinmarketcap.com/static/cloud/img/CoinMarketCap.png')
             .addField('Price (in USD)', '$' + data.price_usd)
             .addField('Price (in Satoshis)', satPrice)
             .addField('Percentage Change (1hr)', data.percent_change_1h + '%')
@@ -201,7 +202,8 @@ client.on('message', message => {
             .setColor('#ffc107')
             .setTitle(data.name + ' (' + data.symbol + ') stats')
             .setDescription('[More info here](' + cmMoreInfoRoot + data.id + '/)')
-            .setThumbnail(cmImageRoot + data.id + '.png')
+            //.setThumbnail(cmImageRoot + 'bitcoin.png') Error with the url image
+            .setThumbnail('https://s2.coinmarketcap.com/static/cloud/img/CoinMarketCap.png')
             .addField('Price in Satoshis', satPrice)
             .addField('Percentage Change (1hr)', sat1Hr.toFixed(2) + '%')
             .addField('Percentage Change (24hr)', sat24Hr.toFixed(2) + '%')
@@ -235,7 +237,7 @@ client.on('message', message => {
             .setColor('#ffc107') // Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
             .setTitle('Market Capitalization Stats')
             .setDescription('[More info here](https://coinmarketcap.com/)')
-            .setThumbnail('https://coinmarketcap.com/static/img/CoinMarketCap.png')
+            .setThumbnail('https://s2.coinmarketcap.com/static/cloud/img/CoinMarketCap.png')
             .addField('Total Market Cap (in USD)', '$' + data.total_market_cap_usd)
             .addField('Last 24 hour (in USD)', '$' + data.total_24h_volume_usd)
             .addField('Total Bitcoin percentage', data.bitcoin_percentage_of_market_cap + '%')
@@ -250,7 +252,8 @@ client.on('message', message => {
       // .setTitle('This is your title, it can hold 256 characters')
       // .setURL('https://discord.js.org/#/docs/main/indev/class/RichEmbed')
       // .setDescription('This is the main body of text, it can hold 2048 characters.')
-      .setThumbnail(cmImageRoot + 'bitcoin.png')
+      //.setThumbnail(cmImageRoot + 'bitcoin.png') Error with the url image
+      .setThumbnail('https://s2.coinmarketcap.com/static/cloud/img/CoinMarketCap.png')
       .addField('Total server', client.guilds.size, true)
       .addField('Total users', client.guilds.reduce((mem, g) => mem += g.memberCount, 0), true)
       .addField('Version:', config.botVersion, true)
