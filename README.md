@@ -59,7 +59,6 @@ npm start
 
 ## Join me
 
-Discord – [Join my server](https://discord.gg/4HqYAjy)<br>
 Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
 

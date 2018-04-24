@@ -341,7 +341,7 @@ function getHelpMessage () {
     .addField('Version:', config.botVersion, true)
     .addField('Discord.js version:', '11.2.1', true)
     .addField('Made by:', '<@176759285366128641>', true)
-    .addField('Join me here:', 'https://discord.gg/4HqYAjy', true)
+    .addField('Join me here:', 'https://discord.gg/UAtTstS', true)
     .addField('Now available on GitHub:', 'https://github.com/MrDragonXM15/CryptoBot')
     .addField(':level_slider: COMMANDS', 'All commands for the bot')
     .addField('$help', 'See all commands in DM')
