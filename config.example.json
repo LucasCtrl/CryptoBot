@@ -6,12 +6,5 @@
   "prefix": "$", 
   "botId": "Your bot ID's", 
   "botVersion": "1.2.3", 
-  "ownerID": "Your personnal ID", 
-  "useFTP": false,
-  "FTPLogin": { 
-    "host": "", 
-    "port": "", 
-    "user": "", 
-    "password": "" 
-  }
+  "ownerID": "Your personnal ID"
 }
