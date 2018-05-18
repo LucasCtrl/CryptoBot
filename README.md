@@ -16,7 +16,7 @@ To see all the commands available on the bot, just write $help in a text channel
 ## Installation
 
 ```sh
-git clone https://github.com/MrDragonXM15/CryptoBot
+git clone https://github.com/LucasCtrl/CryptoBot
 cd CryptoBot
 npm install
 ```
@@ -62,17 +62,17 @@ npm start
 Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
 
-Distributed under the MIT license. See [LICENSE](https://github.com/MrDragonXM15/CryptoBot/blob/master/LICENSE) for more information.
+Distributed under the MIT license. See [LICENSE](https://github.com/LucasCtrl/CryptoBot/blob/master/LICENSE) for more information.
 
 ## Author/Contributor
 
-* **LucasAlt** _alias_ [@MrDragonXM15](https://github.com/MrDragonXM15)
+* **LucasAlt** _alias_ [@LucasCtrl](https://github.com/LucasCtrl)
 * **Chet Michals** _alias_ [@chetmichals](https://github.com/chetmichals)
-* [And more](https://github.com/MrDragonXM15/CryptoBot/graphs/contributors)
+* [And more](https://github.com/LucasCtrl/CryptoBot/graphs/contributors)
 
 ## Contributing
 
-1. Fork it (<https://github.com/MrDragonXM15/CryptoBot/fork>)
+1. Fork it (<https://github.com/LucasCtrl/CryptoBot/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
