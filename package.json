@@ -6,5 +6,15 @@
   "repository": "https://github.com/LucasCtrl/CryptoBot",
   "author": "LucasCtrl <lucasalt@protonmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  },
+  "scripts": {
+    "lint": "standard --fix",
+    "start": "npm run lint && node index.js"
+  }
 }
