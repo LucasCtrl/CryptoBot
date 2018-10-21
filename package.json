@@ -1,0 +1,10 @@
+{
+  "name": "cryptobot",
+  "version": "2.0.0",
+  "description": "A discord bot that allows you to search for the value of all cryptocurrency available on CoinMarketCap",
+  "main": "index.js",
+  "repository": "https://github.com/LucasCtrl/CryptoBot",
+  "author": "LucasCtrl <lucasalt@protonmail.com>",
+  "license": "MIT",
+  "private": false
+}
