@@ -1,16 +1,8 @@
-## :warning: The project is no longer maintained but the robot is still online
-<p align="center">
-   <img src="https://img.shields.io/badge/Bot_Version-1.2.3-lightgrey.svg?style=for-the-badge" alt="Bot version"></img>
-   <a href="https://discord.js.org/" target="_blank"><img src="https://img.shields.io/badge/discord.js-11.2.1-blue.svg?style=for-the-badge" alt="Discord.js version"></img></a>
-   <img src="https://img.shields.io/badge/Status-Online-brightgreen.svg?style=for-the-badge" alt="Status"></img>
-</p>
-
 # CryptoBot
 > CryptoBot, your best friend on your discord server
 
 A discord bot that allows you to search for the value of all cryptocurrency available on [CoinMarketCap](https://coinmarketcap.com/).
 
-If you want to add it on your server, it's simple, you just need to click here: [CryptoBot Website](https://lucasalt.fr/fr/cryptobot).<br>
 To see all the commands available on the bot, just write $help in a text channel.
 
 ## Installation
