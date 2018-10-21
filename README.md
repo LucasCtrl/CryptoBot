@@ -22,6 +22,8 @@ npm start
 ```
 
 ## Release History
+* 2.0.0
+    * Complete robot rewrite
 * 1.2.3
     * Display the currency valur of a cryptocurrency in Satoshi in the `$money` command
     * Added a percent change to the `$sats` command
