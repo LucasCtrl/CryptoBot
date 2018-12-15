@@ -1,16 +1,20 @@
 # CryptoBot
 > CryptoBot, your best friend on your discord server
 
-A discord bot that allows you to search for the value of all cryptocurrency available on [CoinMarketCap](https://coinmarketcap.com/).
+![Bot version: 2.0.0](https://img.shields.io/badge/Bot%20version-2.0.0-brightgreen.svg?style=flat-square)
+![Discord.js: 11.4.2](https://img.shields.io/badge/Discord.js-11.4.2-blue.svg?style=flat-square)
 
-To see all the commands available on the bot, just write $help in a text channel.
+A discord bot that allows you to search for the value of all cryptocurrency available on [CryptoCompare](https://www.cryptocompare.com/).
+
+If you want to add it on your server, it's simple, you just need to click here: [Bot invitation link](https://discordapp.com/oauth2/authorize?client_id=390170456067538944&scope=bot&permissions=75776).<br>
+To see all the commands available on the bot, just write `$help` in a text channel.
 
 ## Installation
 
 ```sh
 git clone https://github.com/LucasCtrl/CryptoBot
 cd CryptoBot
-npm install
+yarn install
 ```
 
 ## Usage
@@ -18,12 +22,12 @@ npm install
 Edit the `config.example.json` file with your informations and rename it to `config.json` and enjoy with
 
 ```sh
-npm start
+yarn start
 ```
 
 ## Release History
 * 2.0.0
-    * Complete robot rewrite
+    * Rewriting the robot
 * 1.2.3
     * Display the currency valur of a cryptocurrency in Satoshi in the `$money` command
     * Added a percent change to the `$sats` command
@@ -53,6 +57,7 @@ npm start
 
 ## Join me
 
+Twitter – [@LucasCtrlAlt](https://twitter.com/lucasctrlalt)<br>
 Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
 
