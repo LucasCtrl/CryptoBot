@@ -17,7 +17,7 @@
   },
   "scripts": {
     "lint": "standard --fix",
-    "build": "npm run lint && node index.js",
-    "start": "node index.js"
+    "build": "npm run lint && node app.js",
+    "start": "node app.js"
   }
 }

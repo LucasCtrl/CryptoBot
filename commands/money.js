@@ -2,8 +2,8 @@ const request = require('request')
 
 exports.run = (bot, message, args) => {
   message.delete()
-  let cryptoCurrency = args[0]
-  let symbol = args[1] ? args[1] : 'USD'
+  let cryptoCurrency = args[0].toUpperCase()
+  let symbol = args[1] ? args[1].toUpperCase() : 'USD'
   request(`https://min-api.cryptocompare.com/data/price?fsym=${cryptoCurrency}&tsyms=${symbol}`, function (err, response, body) {
     if (err) {
       message.channel.send('```' + err + '```')
