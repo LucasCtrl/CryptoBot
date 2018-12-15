@@ -1,14 +1,15 @@
 {
   "name": "cryptobot",
   "version": "2.0.0",
-  "description": "A discord bot that allows you to search for the value of all cryptocurrency available on CoinMarketCap",
-  "main": "index.js",
+  "description": "A discord bot that allows you to search for the value of some cryptocurrency",
+  "main": "app.js",
   "repository": "https://github.com/LucasCtrl/CryptoBot",
-  "author": "LucasCtrl <lucasalt@protonmail.com>",
+  "author": "LucasCtrl <lucasalt@protonmail.com> (https://lucasalt.fr)",
   "license": "MIT",
   "private": false,
   "dependencies": {
     "discord.js": "^11.4.2",
+    "enmap": "^4.5.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
