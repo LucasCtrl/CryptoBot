@@ -1,4 +1,4 @@
-module.exports = (bot, message) => {
+module.exports = (bot, hook, message) => {
   // Ignore all bots
   if (message.author.bot) return
 
@@ -23,4 +23,38 @@ module.exports = (bot, message) => {
 
   // Run the command
   cmd.run(bot, message, args)
+
+  // Send a message using the webhook
+  const embeds = [{
+    'color': 16761095,
+    'description': `**${bot.config.prefix}${command}** - From ${message.author.tag}`,
+    'fields': [
+      {
+        'name': '___',
+        'value': ':round_pushpin: **GUILD INFO**',
+        'inline': false
+      },
+      {
+        'name': 'Guild name',
+        'value': message.guild.name,
+        'inline': true
+      },
+      {
+        'name': 'Guild id',
+        'value': message.guild.id,
+        'inline': true
+      },
+      {
+        'name': 'Guild size',
+        'value': message.guild.memberCount,
+        'inline': true
+      },
+      {
+        'name': 'Guild owner',
+        'value': `**${message.guild.owner.user.tag}** ${message.guild.owner.id}`,
+        'inline': false
+      }
+    ]
+  }]
+  hook.send({ embeds })
 }

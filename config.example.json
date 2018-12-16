@@ -2,5 +2,9 @@
   "token": "YOUR_BOT_TOKEN",
   "prefix": "$",
   "version": "2.0.0",
-  "DiscordJSVersion": "11.4.2"
+  "DiscordJSVersion": "11.4.2",
+  "webhook": {
+    "id": "",
+    "token": ""
+  }
 }
