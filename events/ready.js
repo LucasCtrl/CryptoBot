@@ -10,6 +10,14 @@ module.exports = (bot) => {
     setTimeout(game2 => {
       bot.user.setActivity(`${bot.config.prefix}help`, { type: 'WATCHING' })
         .catch(console.error)
+      setTimeout(game3 => {
+        bot.user.setActivity(`https://discord.gg/nEDcagb for support`, { type: 'WATCHING' })
+          .catch(console.error)
+        setTimeout(game4 => {
+          bot.user.setActivity(`V2 launch ! More powerful, consumes less`, { type: 'WATCHING' })
+            .catch(console.error)
+        }, 100000)
+      }, 100000)
     }, 100000)
-  }, 200000)
+  }, 400000)
 }
