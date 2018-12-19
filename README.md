@@ -60,6 +60,7 @@ yarn start
 
 ## Join me
 
+Discord - [@LucasAlt#7887](https://discord.gg/nEDcagb)<br>
 Twitter – [@LucasCtrlAlt](https://twitter.com/lucasctrlalt)<br>
 Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
