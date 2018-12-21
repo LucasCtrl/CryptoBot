@@ -1,7 +1,10 @@
 # CryptoBot
 > CryptoBot, your best friend on your discord server
 
-![Bot version: 2.0.0](https://img.shields.io/badge/Bot%20version-2.0.0-brightgreen.svg?style=flat-square)
+[![Discord](https://img.shields.io/discord/520988062046486529.svg?style=flat-square)](https://discord.gg/nEDcagb)
+[![GitHub](https://img.shields.io/github/license/LucasCtrl/CryptoBot.svg?style=flat-square)](https://github.com/LucasCtrl/CryptoBot/blob/master/LICENSE)
+![Lint style](https://img.shields.io/badge/code_style-standard-yellow.svg?style=flat-square)
+[![Latest release](https://img.shields.io/github/release/LucasCtrl/CryptoBot.svg?style=flat-square)](https://github.com/LucasCtrl/CryptoBot/release/latest/)
 ![Discord.js: 11.4.2](https://img.shields.io/badge/Discord.js-11.4.2-blue.svg?style=flat-square)
 
 A discord bot that allows you to search for the value of all cryptocurrency available on [CryptoCompare](https://www.cryptocompare.com/).
@@ -57,6 +60,7 @@ yarn start
 
 ## Join me
 
+Discord - [@LucasAlt#7887](https://discord.gg/nEDcagb)<br>
 Twitter – [@LucasCtrlAlt](https://twitter.com/lucasctrlalt)<br>
 Mastodon – [@LucasAlt@mstdn.io](https://mstdn.io/@lucasalt)<br>
 Reddit – [MrDragonXM15](https://www.reddit.com/user/MrDragonXM15/)
