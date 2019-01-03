@@ -5,7 +5,7 @@ const fs = require('fs')
 const config = require('./config.json')
 
 const bot = new Discord.Client()
-const hook = new Discord.WebhookClient(config.webhook.id, config.webhook.token)
+const privateHook = new Discord.WebhookClient(config.webhookPrivate.id, config.webhookPrivate.token)
 
 // Pass data through bot
 bot.config = config
@@ -17,7 +17,7 @@ fs.readdir('./events/', (err, files) => {
   files.forEach(file => {
     const event = require(`./events/${file}`)
     let eventName = file.split('.')[0]
-    bot.on(eventName, event.bind(null, bot, hook))
+    bot.on(eventName, event.bind(null, bot, privateHook))
   })
 })
 
