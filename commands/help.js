@@ -47,6 +47,11 @@ exports.run = (bot, message) => {
         'inline': true
       },
       {
+        'name': `${bot.config.prefix}dailymarket <CURRENCY> :money_with_wings:`,
+        'value': 'Daily marketcap (Updated daily at 00:00 GTM). By default the currency is USD but you can use BTC, EUR, ETH and many more',
+        'inline': true
+      },
+      {
         'name': `${bot.config.prefix}stats :notepad_spiral:`,
         'value': 'Display some info about CryptoBot',
         'inline': true

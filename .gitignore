@@ -1,6 +1,5 @@
 # Node modules
 node_modules/
-_site/
 
 # Configuration
 config.json

@@ -12,12 +12,12 @@ exports.run = (bot, message, args) => {
     try {
       let data = JSON.parse(body)
       if (!data[symbol]) {
-        message.reply('Please select a correct currency or symbol').then(m => { setTimeout(() => { m.delete() }, 5000) })
+        message.reply('Please select a correct currency (BTC, DOGE, ETH, ...) or symbol (USD, EUR, ...)').then(m => { setTimeout(() => { m.delete() }, 5000) })
       } else {
         message.channel.send(`1 ${cryptoCurrency} costs ${data[symbol]} ${symbol}`)
       }
     } catch (err) {
-      message.channel.send('```' + err + '```Please, report this error on github with a screenshot https://github.com/LucasCtrl/CryptoBot/issues/new')
+      message.channel.send('```' + err + '```Please select a correct currency (BTC, DOGE, ETH, ...) or symbol (USD, EUR, ...) or report this error on github with a screenshot https://github.com/LucasCtrl/CryptoBot/issues/new')
     }
   })
 }
